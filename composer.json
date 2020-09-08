@@ -1,0 +1,27 @@
+{
+    "name": "tankphper/thinkphp-mini",
+    "description": "Thinkphp 3.2 minimum version",
+    "type": "framework",
+    "require": {
+        "php": ">=7.1",
+        "monolog/monolog": "^1.24"
+    },
+    "autoload": {
+        "classmap": [
+        ],
+        "psr-4": {
+            "Think\\": "src/"
+        },
+        "files": [
+            "./helper/functions.php"
+        ]
+    },
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Tank",
+            "email": "tankphper@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
