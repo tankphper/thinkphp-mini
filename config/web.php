@@ -34,6 +34,7 @@ return [
     // 日志配置
     'LOG_NAME'           => env('LOG_NAME', 'APP'),
     'LOG_FILE'           => env('LOG_FILE', LOG_PATH . '/app.log'),
+    'LOG_FILE_KEEP_DAY'  => env('LOG_FILE_KEEP_DAY', 7),
     'LOG_FLUSH_SIZE'     => env('LOG_FLUSH_SIZE', 1),
     'LOG_ROTATE_SIZE'    => env('LOG_ROTATE_SIZE', 20971520),
     'LOG_FORMAT'         => env('LOG_FORMAT', "%datetime% [%channel%.%level_name%.%request_id%] %remote_ip% %request_method% %request_uri% => %message%"),

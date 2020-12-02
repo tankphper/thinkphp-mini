@@ -13,6 +13,13 @@ class FileRotateHandler extends AbstractProcessingHandler
     protected $logFile = '';
 
     /**
+     * Log file keep day
+     *
+     * @var int
+     */
+    protected $logFileKeepDay = 7;
+
+    /**
      * Rotate file size
      *
      * @var int
@@ -58,6 +65,16 @@ class FileRotateHandler extends AbstractProcessingHandler
     public function setRotateSize($rotateSize)
     {
         $this->rotateSize = $rotateSize;
+    }
+
+    /**
+     * Set log file keep day
+     *
+     * @param $keepDay
+     */
+    public function setKeepDay($keepDay)
+    {
+        $this->logFileKeepDay = $keepDay;
     }
 
     /**
@@ -135,7 +152,7 @@ class FileRotateHandler extends AbstractProcessingHandler
     {
         $files = glob(dirname($logFile) . '/*.' . basename($logFile));
         if (!empty($files)) {
-            $deleteTime = strtotime('-7day');
+            $deleteTime = strtotime('-' . $this->logFileKeepDay . 'day');
             foreach ($files as $k => $file) {
                 if (filemtime($file) <= $deleteTime) {
                     @unlink($file);

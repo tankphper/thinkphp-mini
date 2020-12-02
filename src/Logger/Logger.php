@@ -49,6 +49,7 @@ class Logger extends MonologLogger
         $logFile = $options['logFileName'] ? LOG_PATH . '/' . $options['logFileName'] . '.log' : C('LOG_FILE', null, '');
         $logHandler->setLogFile($logFile);
         $logHandler->setRotateSize(C('LOG_ROTATE_SIZE', null, ''));
+        $logHandler->setKeepDay(C('LOG_FILE_KEEP_DAY', null, 7));
         $logHandler->setFormatter($lineFormatter);
 
         parent::__construct(C('LOG_NAME', null, $this->name), [$logHandler]);
