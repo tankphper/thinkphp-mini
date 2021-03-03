@@ -685,6 +685,45 @@ function C($name = null, $value = null, $default = null)
 }
 
 /**
+ * 语言包
+ *
+ * @param null $name
+ * @param null $value
+ * @return array|mixed|null|string
+ */
+function L($name = null, $value = null)
+{
+    static $_lang = array();
+    // 空参数返回所有定义
+    if (empty($name)) {
+        return $_lang;
+    }
+    // 判断语言获取(或设置)
+    // 若不存在,直接返回全大写$name
+    if (is_string($name)) {
+        $name = strtoupper($name);
+        if (is_null($value)) {
+            return $_lang[$name] ?? $name;
+        } elseif (is_array($value)) {
+            // 支持变量
+            $replace = array_keys($value);
+            foreach ($replace as &$v) {
+                $v = '{$' . $v . '}';
+            }
+            return str_replace($replace, $value, $_lang[$name] ?? $name);
+        }
+        // 语言定义
+        $_lang[$name] = $value;
+        return null;
+    }
+    // 批量定义
+    if (is_array($name)) {
+        $_lang = array_merge($_lang, array_change_key_case($name, CASE_UPPER));
+    }
+    return null;
+}
+
+/**
  * 获取输入参数 支持过滤和默认值
  * 使用方法:
  * <code>

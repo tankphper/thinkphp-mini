@@ -15,17 +15,17 @@ class Event
      * 动态添加事件行为到某个事件
      *
      * @param $eventName
-     * @param $className
+     * @param $eventClass
      */
-    public static function add($eventName, $className)
+    public static function add($eventName, $eventClass)
     {
         if (!isset(self::$events[$eventName])) {
             self::$events[$eventName] = [];
         }
-        if (is_array($className)) {
-            self::$events[$eventName] = array_merge(self::$events[$eventName], $className);
+        if (is_array($eventClass)) {
+            self::$events[$eventName] = array_merge(self::$events[$eventName], $eventClass);
         } else {
-            self::$events[$eventName][] = $className;
+            self::$events[$eventName][] = $eventClass;
         }
     }
 
@@ -42,11 +42,11 @@ class Event
             self::$events = array_merge(self::$events, $events);
         } else {
             // 合并导入
-            foreach ($events as $eventName => $value) {
+            foreach ($events as $eventName => $eventClass) {
                 if (!isset(self::$events[$eventName])) {
                     self::$events[$eventName] = [];
                 }
-                self::$events[$eventName] = array_merge(self::$events[$eventName], $value);
+                self::$events[$eventName] = array_merge(self::$events[$eventName], $eventClass);
             }
         }
     }

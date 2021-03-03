@@ -1,7 +1,6 @@
 <?php
 namespace Think;
 
-use Think\Model\PartitionModel;
 use Think\Reporter\ErrorReporter;
 use Think\Traits\ErrorTrait;
 use Think\Traits\InstanceTrait;
@@ -1413,7 +1412,7 @@ class Model implements ErrorReporter
     protected function _validationField($data, $val)
     {
         if (false === $this->_validationFieldItem($data, $val)) {
-            $this->setError($val[2]);
+            $this->setError(L($val[2]));
             return false;
         }
         return true;

@@ -21,6 +21,7 @@ class App
      */
     public static function run()
     {
+        // 初始化
         static::init();
         // 加载配置
         static::loadConfig();
@@ -28,6 +29,8 @@ class App
         static::registerEvent();
         // URL调度分发
         Dispatcher::dispatch();
+        // 执行事件
+        Event::trigger('app_begin');
         // 执行控制器
         static::exec();
     }
@@ -107,10 +110,8 @@ class App
      */
     public static function loadConfig()
     {
-        $configPath = dirname(__DIR__);
-        foreach (glob($configPath . '/config/*.php') as $filename) {
-            C(load_config($filename));
-        }
+        $configDir = dirname(__DIR__);
+        C(load_config($configDir . '/config/web.php'));
     }
 
     /**
@@ -118,8 +119,8 @@ class App
      */
     public static function registerEvent()
     {
-        $events = C('events');
-        !empty($events) && Event::register($events);
+        $configDir = dirname(__DIR__);
+        Event::register(include $configDir . '/config/event.php');
     }
 
     /**

@@ -58,7 +58,10 @@ class Dispatcher
         define('MODULE_PATH', APP_PATH . '/' . MODULE_NAME);
         // 模块配置
         is_file(APP_PATH . '/' . COMMON_MODULE . '/Conf/config.php') && C(load_config(APP_PATH . '/' . COMMON_MODULE . '/Conf/config.php'));
-        is_file(MODULE_PATH . '/' . 'Conf/config.php') && C(load_config(MODULE_PATH . '/Conf/config.php'));
+        is_file(MODULE_PATH . '/Conf/config.php') && C(load_config(MODULE_PATH . '/Conf/config.php'));
+        // 模块事件
+        is_file(APP_PATH . '/' . COMMON_MODULE . '/Conf/event.php') && Event::register(include APP_PATH . '/' . COMMON_MODULE . '/Conf/event.php');
+        is_file(MODULE_PATH . '/Conf/event.php') && Event::register(include MODULE_PATH . '/Conf/event.php');
         // 模版缓存
         C('TMPL_CACHE_PATH', CACHE_PATH . '/' . MODULE_NAME . '/');
         // 模块地址
