@@ -40,7 +40,7 @@ class DetectLang implements EventInterface
             } elseif (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
                 // 自动侦测浏览器语言
                 preg_match('/^([a-z\d\-]+)/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches);
-                $appLang = $matches[1];
+                $appLang = strtolower($matches[1]);
                 cookie('language', $appLang, 3600);
             }
             if (false === stripos($langList, $appLang)) {
