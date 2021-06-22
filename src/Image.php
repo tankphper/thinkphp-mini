@@ -4,51 +4,45 @@ namespace Think;
 /**
  * 图片处理驱动类，可配置图片处理库
  * 目前支持GD库和imagick
- *
- * @author 麦当苗儿 <zuojiazi@vip.qq.com>
  */
 class Image
 {
-
-    /* 驱动相关常量定义 */
+    // 标识GD库类型
     const IMAGE_GD = 1;
-    // 常量，标识GD库类型
+    // imagick库类型
     const IMAGE_IMAGICK = 2;
-    // 常量，标识imagick库类型
 
-    /* 缩略图相关常量定义 */
-    const IMAGE_THUMB_SCALE = 1;
     // 常量，标识缩略图等比例缩放类型
-    const IMAGE_THUMB_FILLED = 2;
+    const IMAGE_THUMB_SCALE = 1;
     // 常量，标识缩略图缩放后填充类型
-    const IMAGE_THUMB_CENTER = 3;
+    const IMAGE_THUMB_FILLED = 2;
     // 常量，标识缩略图居中裁剪类型
-    const IMAGE_THUMB_NORTHWEST = 4;
+    const IMAGE_THUMB_CENTER = 3;
     // 常量，标识缩略图左上角裁剪类型
-    const IMAGE_THUMB_SOUTHEAST = 5;
+    const IMAGE_THUMB_NORTHWEST = 4;
     // 常量，标识缩略图右下角裁剪类型
-    const IMAGE_THUMB_FIXED = 6;
+    const IMAGE_THUMB_SOUTHEAST = 5;
     // 常量，标识缩略图固定尺寸缩放类型
+    const IMAGE_THUMB_FIXED = 6;
 
-    /* 水印相关常量定义 */
-    const IMAGE_WATER_NORTHWEST = 1;
     // 常量，标识左上角水印
-    const IMAGE_WATER_NORTH = 2;
+    const IMAGE_WATER_NORTHWEST = 1;
     // 常量，标识上居中水印
-    const IMAGE_WATER_NORTHEAST = 3;
+    const IMAGE_WATER_NORTH = 2;
     // 常量，标识右上角水印
-    const IMAGE_WATER_WEST = 4;
+    const IMAGE_WATER_NORTHEAST = 3;
     // 常量，标识左居中水印
-    const IMAGE_WATER_CENTER = 5;
+    const IMAGE_WATER_WEST = 4;
     // 常量，标识居中水印
-    const IMAGE_WATER_EAST = 6;
+    const IMAGE_WATER_CENTER = 5;
     // 常量，标识右居中水印
-    const IMAGE_WATER_SOUTHWEST = 7;
+    const IMAGE_WATER_EAST = 6;
     // 常量，标识左下角水印
-    const IMAGE_WATER_SOUTH = 8;
+    const IMAGE_WATER_SOUTHWEST = 7;
     // 常量，标识下居中水印
-    const IMAGE_WATER_SOUTHEAST = 9;
+    const IMAGE_WATER_SOUTH = 8;
     // 常量，标识右下角水印
+    const IMAGE_WATER_SOUTHEAST = 9;
 
     /**
      * 图片资源
@@ -61,12 +55,14 @@ class Image
      * Image constructor.
      *
      * @param int  $type
-     * @param null $imgname
-     * @throws Exception
+     * @param null $imageName
+     * @throws \Exception
      */
-    public function __construct($type = self::IMAGE_GD, $imgname = null)
+    public function __construct($type = self::IMAGE_GD, $imageName = null)
     {
-        // 判断调用库的类型
+        /**
+         * 驱动类型
+         */
         switch ($type) {
             case self::IMAGE_GD:
                 $class = 'Gd';
@@ -75,37 +71,36 @@ class Image
                 $class = 'Imagick';
                 break;
             default:
-                E('不支持的图片处理库类型');
+                throw new \Exception('不支持的图片处理库类型');
         }
-        // 引入处理库，实例化图片处理对象
-        $class = "Think\\Image\\Driver\\{$class}";
-        $this->img = new $class($imgname);
+        $class = 'Think\\Image\\Driver\\' . $class;
+        $this->img = new $class($imageName);
     }
 
     /**
      * 打开一幅图像
      *
-     * @param $imgname
-     * @return $this
+     * @param string $imageName 图片路径
+     * @return $this 当前图片处理库对象
      */
-    public function open($imgname)
+    public function open($imageName)
     {
-        $this->img->open($imgname);
+        $this->img->open($imageName);
         return $this;
     }
 
     /**
      * 保存图片
      *
-     * @param      $imgname
-     * @param null $type
-     * @param int  $quality
-     * @param bool $interlace
+     * @param string  $imageName 图片保存名称
+     * @param string  $type      图片类型
+     * @param int     $quality   图像质量
+     * @param boolean $interlace 是否对JPEG类型图片设置隔行扫描
      * @return $this
      */
-    public function save($imgname, $type = null, $quality = 80, $interlace = true)
+    public function save($imageName, $type = null, $quality = 100, $interlace = true)
     {
-        $this->img->save($imgname, $type, $quality, $interlace);
+        $this->img->save($imageName, $type, $quality, $interlace);
         return $this;
     }
 
@@ -152,7 +147,7 @@ class Image
     /**
      * 返回图像尺寸数组 0 - 图片宽度，1 - 图片高度
      *
-     * @return array 图片尺寸
+     * @return mixed
      */
     public function size()
     {
@@ -168,7 +163,7 @@ class Image
      * @param int $y      裁剪区域y坐标
      * @param int $width  图片保存宽度
      * @param int $height 图片保存高度
-     * @return self  当前图片处理库对象
+     * @return $this 当前图片处理库对象
      */
     public function crop($w, $h, $x = 0, $y = 0, $width = null, $height = null)
     {
@@ -182,7 +177,7 @@ class Image
      * @param int $width  缩略图最大宽度
      * @param int $height 缩略图最大高度
      * @param int $type   缩略图裁剪类型
-     * @return self 当前图片处理库对象
+     * @return $this 当前图片处理库对象
      */
     public function thumb($width, $height, $type = self::IMAGE_THUMB_SCALE)
     {
@@ -196,7 +191,7 @@ class Image
      * @param string $source 水印图片路径
      * @param int    $locate 水印位置
      * @param int    $alpha  水印透明度
-     * @return self 当前图片处理库对象
+     * @return $this 当前图片处理库对象
      */
     public function water($source, $locate = self::IMAGE_WATER_SOUTHEAST, $alpha = 80)
     {
@@ -214,7 +209,7 @@ class Image
      * @param int    $locate 文字写入位置
      * @param int    $offset 文字相对当前位置的偏移量
      * @param int    $angle  文字倾斜角度
-     * @return self 当前图片处理库对象
+     * @return $this 当前图片处理库对象
      */
     public function text($text, $font, $size, $color = '#00000000', $locate = self::IMAGE_WATER_SOUTHEAST, $offset = 0, $angle = 0)
     {
