@@ -699,21 +699,21 @@ function L($name = null, $value = null)
         return $_lang;
     }
     // 判断语言获取(或设置)
-    // 若不存在,直接返回全大写$name
+    // 若不存在，直接原样返回$name
     if (is_string($name)) {
-        $name = strtoupper($name);
+        $upper = strtoupper($name);
         if (is_null($value)) {
-            return $_lang[$name] ?? $name;
+            return $_lang[$upper] ?? $name;
         } elseif (is_array($value)) {
             // 支持变量
             $replace = array_keys($value);
             foreach ($replace as &$v) {
                 $v = '{$' . $v . '}';
             }
-            return str_replace($replace, $value, $_lang[$name] ?? $name);
+            return str_replace($replace, $value, $_lang[$upper] ?? $name);
         }
         // 语言定义
-        $_lang[$name] = $value;
+        $_lang[$upper] = $value;
         return null;
     }
     // 批量定义
