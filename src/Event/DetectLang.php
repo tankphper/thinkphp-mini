@@ -25,7 +25,7 @@ class DetectLang implements EventInterface
     private function checkLanguage()
     {
         $appLang = C('DEFAULT_LANG', null, 'zh-cn');
-        $langVar = C('LANG_VAR', null, 'l');
+        $langVar = C('LANG_VAR', null, 'lang');
         $langList = C('LANG_LIST', null, 'zh-cn');
         $langDetect = C('LANG_DETECT', null, true);
         // 启用了语言包功能
