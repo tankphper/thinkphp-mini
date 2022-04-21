@@ -33,7 +33,6 @@ class DetectLang implements EventInterface
         if ($langDetect) {
             if (isset($_GET[$langVar])) {
                 $appLang = $_GET[$langVar];
-                cookie('language', $appLang, 3600);
             } elseif (cookie('language')) {
                 // 获取上次用户的选择
                 $appLang = cookie('language');
@@ -41,12 +40,12 @@ class DetectLang implements EventInterface
                 // 自动侦测浏览器语言
                 preg_match('/^([a-z\d\-]+)/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches);
                 $appLang = strtolower($matches[1]);
-                cookie('language', $appLang, 3600);
             }
             if (false === stripos($langList, $appLang)) {
                 // 非法语言参数
                 $appLang = C('DEFAULT_LANG');
             }
+            cookie('language', $appLang, 3600);
         }
         // 定义当前语言
         define('APP_LANG', strtolower($appLang));
