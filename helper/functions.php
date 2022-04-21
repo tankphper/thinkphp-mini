@@ -703,7 +703,7 @@ function L($name = null, $value = null)
     if (is_string($name)) {
         $upper = strtoupper($name);
         if (is_null($value)) {
-            return $_lang[$upper] ?? $name;
+            return empty($_lang[$upper]) ? $name : $_lang[$upper];
         } elseif (is_array($value)) {
             // 支持变量
             $replace = array_keys($value);
