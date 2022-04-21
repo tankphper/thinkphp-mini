@@ -718,9 +718,25 @@ function L($name = null, $value = null)
     }
     // 批量定义
     if (is_array($name)) {
-        $_lang = array_merge($_lang, array_change_key_case($name, CASE_UPPER));
+        $_lang = array_merge($_lang, array_change_key_case_unicode($name, CASE_UPPER));
     }
     return null;
+}
+
+/**
+ * 中文KEY
+ *
+ * @param     $array
+ * @param int $case
+ * @return mixed
+ */
+function array_change_key_case_unicode($array, $case = CASE_LOWER)
+{
+    $case = ($case == CASE_LOWER) ? MB_CASE_LOWER : MB_CASE_UPPER;
+    foreach ($array as $key => $value) {
+        $result[mb_convert_case($key, $case, 'UTF-8')] = $value;
+    }
+    return $result;
 }
 
 /**
