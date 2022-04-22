@@ -701,7 +701,7 @@ function L($name = null, $value = null)
     // 判断语言获取(或设置)
     // 若不存在，直接原样返回$name
     if (is_string($name)) {
-        $upper = strtoupper($name);
+        $upper = mb_convert_case($name, MB_CASE_UPPER, 'UTF-8');
         if (is_null($value)) {
             return empty($_lang[$upper]) ? $name : $_lang[$upper];
         } elseif (is_array($value)) {
