@@ -56,7 +56,7 @@ class DetectLang implements EventInterface
             L(include $file);
         }
         // 读取模块语言包
-        $file = MODULE_PATH . 'Lang/' . APP_LANG . '.php';
+        $file = MODULE_PATH . '/Lang/' . APP_LANG . '.php';
         if (is_file($file)) {
             L(include $file);
         }
