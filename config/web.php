@@ -2,6 +2,7 @@
 return [
     'APP_DEBUG'          => env('APP_DEBUG', false),
     // 默认值配置
+    'DEFAULT_THEME'      => env('DEFAULT_THEME', ''),
     'DEFAULT_M_LAYER'    => env('DEFAULT_M_LAYER', 'Model'),
     'DEFAULT_C_LAYER'    => env('DEFAULT_C_LAYER', 'Controller'),
     'DEFAULT_V_LAYER'    => env('DEFAULT_V_LAYER', 'View'),

@@ -1017,7 +1017,9 @@ function T($template = '', $layer = '')
     } elseif (false === strpos($file, '/')) {
         $file = CONTROLLER_NAME . '/' . $file;
     }
-    return $baseUrl . $file . C('TMPL_FILE_SUFFIX');
+    // 默认主题
+    $theme = substr_count($file, '/') < 2 ? C('DEFAULT_THEME') : '';
+    return $baseUrl . ($theme ? $theme . '/' : '') . $file . C('TMPL_FILE_SUFFIX');
 }
 
 /**
