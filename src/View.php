@@ -12,6 +12,13 @@ class View
     protected $tVar = [];
 
     /**
+     * 模板主题
+     *
+     * @var string
+     */
+    protected $theme = '';
+
+    /**
      * 模板变量赋值
      *
      * @param        $name
@@ -138,14 +145,47 @@ class View
     }
 
     /**
-     * 获取当前的视图路径
+     * 获取当前视图路径
      *
      * @param mixed|string $module
      * @return string
      */
     protected function getViewPath($module = MODULE_NAME)
     {
+        // 获取当前主题名称
+        $theme = $this->getTemplateTheme();
         $tmplPath = APP_PATH . '/' . $module . '/' . C('DEFAULT_V_LAYER') . '/';
-        return $tmplPath;
+        return $tmplPath . $theme;
+    }
+
+    /**
+     * 设置当前模板主题
+     *
+     * @param $theme
+     * @return $this
+     */
+    public function theme($theme)
+    {
+        $this->theme = $theme;
+        return $this;
+    }
+
+    /**
+     * 获取当前模板主题
+     *
+     * @return string
+     */
+    private function getTemplateTheme()
+    {
+        if ($this->theme) {
+            // 指定模板主题
+            $theme = $this->theme;
+        } else {
+            // 获取模板主题
+            $theme = C('DEFAULT_THEME');
+        }
+        // 当前模板主题
+        defined('THEME_NAME') || define('THEME_NAME', $theme);
+        return $theme ? $theme . '/' : '';
     }
 }
