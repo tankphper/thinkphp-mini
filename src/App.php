@@ -226,14 +226,14 @@ class App
     /**
      * 自定义错误处理
      *
-     * @param $errno
-     * @param $errstr
-     * @param $errfile
-     * @param $errline
+     * @param $errorNo
+     * @param $errorStr
+     * @param $errorFile
+     * @param $errorLine
      */
     public static function handleError($errorNo, $errorStr, $errorFile, $errorLine)
     {
-        switch ($errno) {
+        switch ($errorNo) {
             case E_ERROR:
             case E_PARSE:
             case E_CORE_ERROR:
