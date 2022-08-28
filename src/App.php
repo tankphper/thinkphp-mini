@@ -40,6 +40,8 @@ class App
      */
     public static function init()
     {
+        // 设置时区
+        date_default_timezone_set(date_default_timezone_get() ?: 'PRC');
         // 错误级别
         ini_set('display_errors', 'On');
         ini_set('error_reporting', 'E_ALL');
@@ -49,8 +51,6 @@ class App
         set_error_handler('Think\App::handleError');
         // 异常处理
         set_exception_handler('Think\App::handleException');
-        // 设置时区
-        date_default_timezone_set('PRC');
         // 请求常量
         define('REQUEST_ID', uniqid('R-'));
         define('REQUEST_URI', $_SERVER['REQUEST_URI'] ?? '/');

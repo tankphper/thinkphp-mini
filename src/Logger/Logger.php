@@ -66,7 +66,7 @@ class Logger extends MonologLogger
     public function addRecord($level, $message, array $context = [])
     {
         if (!static::$timezone) {
-            static::$timezone = new \DateTimeZone(date_default_timezone_get() ?: 'UTC');
+            static::$timezone = new \DateTimeZone(date_default_timezone_get() ?: 'PRC');
         }
         $ts = new \DateTime(null, static::$timezone);
         $ts->setTimezone(static::$timezone);
