@@ -63,7 +63,7 @@ class Db
                 'hostname'    => $config['db_host'],
                 'hostport'    => $config['db_port'],
                 'database'    => $config['db_name'],
-                'charset'     => $config['db_charset'] ?? 'utf8',
+                'charset'     => $config['db_charset'] ?? 'utf8mb4',
                 'debug'       => $config['db_debug'] ?? C('APP_DEBUG')
             ];
         } else {
@@ -104,7 +104,7 @@ class Db
             'hostname' => $info['host'] ?? '',
             'hostport' => $info['port'] ?? '',
             'database' => isset($info['path']) ? substr($info['path'], 1) : '',
-            'charset'  => $info['fragment'] ?? 'utf8'
+            'charset'  => $info['fragment'] ?? 'utf8mb4'
         ];
         if (isset($info['query'])) {
             parse_str($info['query'], $dsn['params']);

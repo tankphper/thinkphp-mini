@@ -63,7 +63,7 @@ class Db extends SessionHandler
      * @param string $charset
      * @return string
      */
-    protected function parseDsn($name, $host = '127.0.0.1', $port = '', $socket = '', $charset = 'utf8')
+    protected function parseDsn($name, $host = '127.0.0.1', $port = '', $socket = '', $charset = 'utf8mb4')
     {
         $dsn = 'mysql:dbname=' . $name . ';host=' . $host;
         if (!empty($port)) {
