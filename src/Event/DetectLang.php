@@ -31,23 +31,21 @@ class DetectLang implements EventInterface
         $langCookie = C('LANG_COOKIE', null, 'language');
         // 启用了语言包功能
         // 根据是否启用自动侦测设置获取语言选择
-        if ($langDetect) {
-            if (isset($_GET[$langVar])) {
-                $appLang = $_GET[$langVar];
-            } elseif (cookie($langCookie)) {
-                // 获取上次用户的选择
-                $appLang = cookie($langCookie);
-            } elseif (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-                // 自动侦测浏览器语言
-                preg_match('/^([a-z\d\-]+)/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches);
-                $appLang = strtolower($matches[1]);
-            }
-            if (false === stripos($langList, $appLang)) {
-                // 非法语言参数
-                $appLang = C('DEFAULT_LANG');
-            }
-            cookie($langCookie, $appLang, 3600);
+        if (isset($_GET[$langVar])) {
+            $appLang = $_GET[$langVar];
+        } elseif (cookie($langCookie)) {
+            // 获取上次用户的选择
+            $appLang = cookie($langCookie);
+        } elseif ($langDetect && isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+            // 自动侦测浏览器语言
+            preg_match('/^([a-z\d\-]+)/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches);
+            $appLang = strtolower($matches[1]);
         }
+        // 非法语言参数
+        if (false === stripos($langList, $appLang)) {
+            $appLang = C('DEFAULT_LANG');
+        }
+        cookie($langCookie, $appLang, 3600);
         // 定义当前语言
         define('APP_LANG', strtolower($appLang));
         // 读取公共语言包
