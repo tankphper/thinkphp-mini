@@ -59,6 +59,8 @@ class Dispatcher
         // 模块配置
         is_file(APP_PATH . '/' . COMMON_MODULE . '/Conf/config.php') && C(load_config(APP_PATH . '/' . COMMON_MODULE . '/Conf/config.php'));
         is_file(MODULE_PATH . '/Conf/config.php') && C(load_config(MODULE_PATH . '/Conf/config.php'));
+        // 环境配置
+        is_file(MODULE_PATH . '/Conf/config.' . C('APP_ENV') . '.php') && C(load_config(MODULE_PATH . '/Conf/config.' . C('APP_ENV') . '.php'));
         // 模块事件
         is_file(APP_PATH . '/' . COMMON_MODULE . '/Conf/event.php') && Event::register(include APP_PATH . '/' . COMMON_MODULE . '/Conf/event.php');
         is_file(MODULE_PATH . '/Conf/event.php') && Event::register(include MODULE_PATH . '/Conf/event.php');

@@ -1,5 +1,6 @@
 <?php
 return [
+    'APP_ENV'            => env('APP_ENV', 'dev'),
     'APP_DEBUG'          => env('APP_DEBUG', false),
     // 默认值配置
     'DEFAULT_THEME'      => env('DEFAULT_THEME', ''),
