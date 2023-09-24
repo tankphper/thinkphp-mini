@@ -70,7 +70,7 @@ class Redis extends AbstractCache
     public function del(string $key)
     {
         $key = $this->options['prefix'] . $key;
-        return $this->handler->delete($key);
+        return $this->handler->del($key);
     }
 
     /**
