@@ -167,7 +167,7 @@ class Mysql extends AbstractDb
     protected function parseDuplicate($duplicate)
     {
         // 布尔值或空则返回空字符串
-        if (is_bool($duplicate) || empty($duplicate)) {
+        if (is_bool($duplicate) || empty($duplicate) || $duplicate == 'IGNORE') {
             return '';
         }
         if (is_string($duplicate)) {
