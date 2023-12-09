@@ -153,7 +153,7 @@ class Mysql extends AbstractDb
         }
         // 兼容数字传入方式
         $replace = (is_numeric($replace) && $replace > 0) ? true : $replace;
-        $sql = (true === $replace ? 'REPLACE' : ('IGNORE' === $replace ? 'INSERT IGNORE' : 'INSERT')) . ' INTO ' . $this->parseTable($options['table']) . ' (' . implode(',', $fields) . ') VALUES ' . implode(',', $values) . $this->parseDuplicate($replace);
+        $sql = (true === $replace ? 'REPLACE' : 'INSERT IGNORE') . ' INTO ' . $this->parseTable($options['table']) . ' (' . implode(',', $fields) . ') VALUES ' . implode(',', $values) . $this->parseDuplicate($replace);
         $sql .= $this->parseComment(!empty($options['comment']) ? $options['comment'] : '');
         return $this->execute($sql, !empty($options['fetch_sql']) ? true : false);
     }
@@ -167,7 +167,7 @@ class Mysql extends AbstractDb
     protected function parseDuplicate($duplicate)
     {
         // 布尔值或空则返回空字符串
-        if (is_bool($duplicate) || empty($duplicate) || $duplicate == 'IGNORE') {
+        if (is_bool($duplicate) || empty($duplicate)) {
             return '';
         }
         if (is_string($duplicate)) {

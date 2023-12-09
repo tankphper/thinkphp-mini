@@ -283,7 +283,7 @@ abstract class AbstractDb
         }
         ++$this->transTimes;
         // 支持嵌套事务，但不支持内嵌并行事务
-        // 如：A->B->C支持，A->B + A-C 不支持
+        // 如：A->B->C支持，A->B + A->C 不支持
         if (1 == $this->transTimes) {
             $this->linkId->beginTransaction();
         }
