@@ -50,7 +50,7 @@ return [
     'COOKIE_EXPIRE'      => env('COOKIE_EXPIRE', 3600),
     'COOKIE_DOMAIN'      => env('COOKIE_DOMAIN', ''),
     'COOKIE_PATH'        => env('COOKIE_PATH', '/'),
-    'COOKIE_PREFIX'      => env('COOKIE_PREFIX', 'tk:'),
+    'COOKIE_PREFIX'      => env('COOKIE_PREFIX', ''),
     'COOKIE_SECURE'      => env('COOKIE_SECURE', false),
     'COOKIE_HTTPONLY'    => env('COOKIE_HTTPONLY', true),
     // 模板配置
