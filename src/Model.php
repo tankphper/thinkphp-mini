@@ -516,7 +516,7 @@ class Model implements ErrorReporter
         }
         $pkFirst = is_array($pk) ? $pk[0] : $pk;
         if (is_array($options['where']) && isset($options['where'][$pkFirst])) {
-            $pkValue = $options['where'][$pk];
+            $pkValue = $options['where'][$pkFirst];
         }
         if (false === $this->_before_update($data, $options)) {
             return false;
@@ -524,7 +524,7 @@ class Model implements ErrorReporter
         $result = $this->db->update($data, $options);
         if (false !== $result && is_numeric($result)) {
             if (isset($pkValue)) {
-                $data[$pk] = $pkValue;
+                $data[$pkFirst] = $pkValue;
             }
             $this->_after_update($data, $options);
         }
