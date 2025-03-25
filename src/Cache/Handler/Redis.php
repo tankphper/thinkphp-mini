@@ -1,7 +1,9 @@
 <?php
 namespace Think\Cache\Handler;
 
+use RedisException;
 use Think\Cache\AbstractCache;
+use Think\Exception;
 use Think\Manager\Redis as RedisManager;
 
 class Redis extends AbstractCache
@@ -18,7 +20,7 @@ class Redis extends AbstractCache
      * Redis constructor.
      *
      * @param array $options
-     * @throws \Think\Exception
+     * @throws Exception
      */
     public function __construct($options = [])
     {
@@ -31,6 +33,7 @@ class Redis extends AbstractCache
      *
      * @param string $key
      * @return mixed
+     * @throws RedisException
      */
     public function get(string $key)
     {
@@ -46,7 +49,8 @@ class Redis extends AbstractCache
      * @param string $key
      * @param        $value
      * @param null   $expire
-     * @return mixed
+     * @return bool|\Redis
+     * @throws RedisException
      */
     public function set(string $key, $value, $expire = null)
     {
@@ -65,7 +69,8 @@ class Redis extends AbstractCache
      * 删除缓存
      *
      * @param string $key
-     * @return mixed
+     * @return false|int|\Redis
+     * @throws RedisException
      */
     public function del(string $key)
     {
@@ -79,7 +84,8 @@ class Redis extends AbstractCache
      * @param string $key
      * @param float  $step
      * @param null   $expire
-     * @return mixed
+     * @return false|float|\Redis
+     * @throws RedisException
      */
     public function incr(string $key, $step, $expire = null)
     {
@@ -94,6 +100,7 @@ class Redis extends AbstractCache
      *
      * @param $key
      * @return mixed
+     * @throws RedisException
      */
     public function __get($key)
     {
@@ -104,7 +111,9 @@ class Redis extends AbstractCache
      * 魔术方法
      *
      * @param $key
+     * @param $value
      * @return mixed
+     * @throws RedisException
      */
     public function __set($key, $value)
     {
@@ -116,6 +125,7 @@ class Redis extends AbstractCache
      *
      * @param $key
      * @return mixed
+     * @throws RedisException
      */
     public function __unset($key)
     {
@@ -128,7 +138,7 @@ class Redis extends AbstractCache
      * @param $method
      * @param $args
      * @return mixed|void
-     * @throws \Think\Exception
+     * @throws Exception
      */
     public function __call($method, $args)
     {
@@ -140,7 +150,6 @@ class Redis extends AbstractCache
             ], $args);
         } else {
             E('Method not exist: ' . __CLASS__ . ':' . $method);
-            return;
         }
     }
 }

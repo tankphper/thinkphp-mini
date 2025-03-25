@@ -4,6 +4,8 @@
     "type": "framework",
     "require": {
         "php": ">=7.1",
+        "ext-json": "*",
+        "ext-redis": "*",
         "monolog/monolog": "^1.24"
     },
     "autoload": {
