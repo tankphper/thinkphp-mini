@@ -112,7 +112,7 @@ class Redis extends AbstractCache
      *
      * @param $key
      * @param $value
-     * @return mixed
+     * @return bool|\Redis
      * @throws RedisException
      */
     public function __set($key, $value)
@@ -124,7 +124,7 @@ class Redis extends AbstractCache
      * 魔术方法
      *
      * @param $key
-     * @return mixed
+     * @return void
      * @throws RedisException
      */
     public function __unset($key)
