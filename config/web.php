@@ -64,6 +64,10 @@ return [
     'TAGLIB_END'         => env('TAGLIB_END', '>'),
     'TAGLIB_LOAD'        => env('TAGLIB_LOAD', true),
     'TAGLIB_BUILD_IN'    => env('TAGLIB_BUILD_IN', 'cx'),
+    // URL路由配置
+    'URL_ROUTER_ON'      => env('URL_ROUTER_ON', false),
+    'URL_ROUTER_MAP'     => [],
+    'URL_DENY_SUFFIX'    => env('URL_DENY_SUFFIX', 'key|pem|sql|sh'),
     // 系统变量配置
     'VAR_MODULE'         => env('VAR_MODULE', 'm'),
     'VAR_CONTROLLER'     => env('VAR_CONTROLLER', 'c'),

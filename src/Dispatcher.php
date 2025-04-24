@@ -29,19 +29,20 @@ class Dispatcher
         $pathInfo = $_GET[$varPath] ?? '/';
         $_SERVER['PATH_INFO'] = $pathInfo == '/' ? '/' . C('DEFAULT_MODULE') : $pathInfo;
         unset($_GET[$varPath]);
-        define('__INFO__', trim($_SERVER['PATH_INFO'], '/'));
-        $_SERVER['PATH_INFO'] = __INFO__;
-        // 检查禁止访问的URL后缀
-        if (preg_match('/\.(key|pem|sql|sh)$/i', $_SERVER['PATH_INFO'])) {
-            send_http_status(404);
-            exit();
-        }
         // URL后缀
         define('__EXT__', strtolower(pathinfo($_SERVER['PATH_INFO'], PATHINFO_EXTENSION)));
+        // 检查禁止访问的URL后缀
+        $denySuffix = C('URL_DENY_SUFFIX');
+        if ($denySuffix && in_array(__EXT__, explode('|', strtolower(str_replace('.', '', $denySuffix))))) {
+            send_http_status(404);
+            exit;
+        }
+        define('__INFO__', trim($_SERVER['PATH_INFO'], '/'));
+        // 去除URL后缀
+        $_SERVER['PATH_INFO'] = preg_replace('/\.html$/i', '', __INFO__);
         // 解析模块
-        $paths = explode('/', __INFO__, 2);
-        $moduleName = preg_replace('/\.' . __EXT__ . '$/i', '', $paths[0]);
-        $moduleName = ucfirst(strip_tags($moduleName));
+        $paths = explode('/', $_SERVER['PATH_INFO'], 2);
+        $moduleName = ucfirst(strip_tags($paths[0]));
         $modulePath = APP_PATH . '/' . $moduleName;
         //$_GET['m'] = $moduleName;
         // 检测模块
@@ -71,10 +72,12 @@ class Dispatcher
 
 
         // 找控制器
-        $_SERVER['PATH_INFO'] = $paths[1] ?? '';
-        // 去除URL后缀
-        $_SERVER['PATH_INFO'] = preg_replace('/\.html$/i', '', $_SERVER['PATH_INFO']);
-        $paths = explode('/', trim($_SERVER['PATH_INFO'], '/'));
+        $pathInfo = $paths[1] ?? '';
+        // 模块路由
+        if (C('URL_ROUTER_ON') && $routerMap = C('URL_ROUTER_MAP')) {
+            $pathInfo = $routerMap[$pathInfo] ?? $pathInfo;
+        }
+        $paths = explode('/', trim($pathInfo, '/'));
         $controllerName = strip_tags(parse_name(array_shift($paths), 1)) ?: C('DEFAULT_CONTROLLER');
         //$_GET['c'] = $controllerName;
         define('CONTROLLER_NAME', $controllerName);
