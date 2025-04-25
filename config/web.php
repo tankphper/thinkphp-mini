@@ -45,7 +45,7 @@ return [
     'SESSION_TYPE'       => env('SESSION_TYPE', 'Redis'),
     'SESSION_PREFIX'     => env('SESSION_PREFIX', 'session:'),
     'SESSION_EXPIRE'     => env('SESSION_EXPIRE', 3600),
-    'SESSION_VAR'        => env('SESSION_VAR', 'PHPSESSID'),
+    'SESSION_VAR'        => env('SESSION_VAR', 'session_id'),
     // Cookie 配置
     'COOKIE_EXPIRE'      => env('COOKIE_EXPIRE', 3600),
     'COOKIE_DOMAIN'      => env('COOKIE_DOMAIN', ''),

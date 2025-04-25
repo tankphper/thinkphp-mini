@@ -6,6 +6,8 @@
         "php": ">=7.1",
         "ext-json": "*",
         "ext-redis": "*",
+        "ext-mbstring": "*",
+        "ext-simplexml": "*",
         "monolog/monolog": "^1.24"
     },
     "autoload": {
