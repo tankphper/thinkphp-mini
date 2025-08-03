@@ -10,7 +10,7 @@ return [
     'DEFAULT_MODULE'     => env('DEFAULT_MODULE', 'Home'),
     'DEFAULT_CONTROLLER' => env('DEFAULT_CONTROLLER', 'Index'),
     'DEFAULT_ACTION'     => env('DEFAULT_ACTION', 'index'),
-    'DEFAULT_FILTER'     => env('DEFAULT_FILTER', 'trim,htmlspecialchars'),
+    'DEFAULT_FILTER'     => env('DEFAULT_FILTER', 'htmlspecialchars'),
     // 数据库配置
     'DB_TYPE'            => env('DB_TYPE', 'mysql'),
     'DB_HOST'            => env('DB_HOST', '127.0.0.1'),
