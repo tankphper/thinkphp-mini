@@ -128,16 +128,16 @@ class FileRotateHandler extends AbstractProcessingHandler
     /**
      * Rotate log file
      *
-     * @return bool
+     * @return void
      */
     private function rotateLog()
     {
         if (!$this->rotateSize) {
-            return false;
+            return;
         }
         $fileSize = filesize($this->logFile);
         if ($fileSize >= $this->rotateSize) {
-            $fileName = date('YmdH') . '.' . basename($this->logFile);
+            $fileName = date('YmdHi') . '.' . basename($this->logFile);
             @rename($this->logFile, dirname($this->logFile) . '/' . $fileName);
             $this->deleteLog($this->logFile);
         }
@@ -153,7 +153,7 @@ class FileRotateHandler extends AbstractProcessingHandler
         $files = glob(dirname($logFile) . '/*.' . basename($logFile));
         if (!empty($files)) {
             $deleteTime = strtotime('-' . $this->logFileKeepDay . 'day');
-            foreach ($files as $k => $file) {
+            foreach ($files as $file) {
                 if (filemtime($file) <= $deleteTime) {
                     @unlink($file);
                 }
