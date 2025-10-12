@@ -137,7 +137,7 @@ class FileRotateHandler extends AbstractProcessingHandler
         }
         $fileSize = filesize($this->logFile);
         if ($fileSize >= $this->rotateSize) {
-            $fileName = date('YmdHi') . '.' . basename($this->logFile);
+            $fileName = rtrim(basename($this->logFile), 'log') . date('YmdHi') . '.log';
             @rename($this->logFile, dirname($this->logFile) . '/' . $fileName);
             $this->deleteLog($this->logFile);
         }
