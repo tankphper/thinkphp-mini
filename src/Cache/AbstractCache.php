@@ -49,6 +49,15 @@ abstract class AbstractCache
     abstract function exists(string $key);
 
     /**
+     * 设置超时
+     *
+     * @param string $key
+     * @param int    $timeout
+     * @return mixed
+     */
+    abstract function expire(string $key, int $timeout);
+
+    /**
      * 原子自增
      *
      * @param string $key
