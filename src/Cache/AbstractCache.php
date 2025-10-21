@@ -27,10 +27,10 @@ abstract class AbstractCache
      *
      * @param string $key
      * @param        $value
-     * @param null   $ttl
+     * @param null   $expire
      * @return mixed
      */
-    abstract function set(string $key, $value, $ttl = null);
+    abstract function set(string $key, $value, $expire = null);
 
     /**
      * 删除缓存
@@ -41,11 +41,19 @@ abstract class AbstractCache
     abstract function del(string $key);
 
     /**
+     * 是否存在
+     *
+     * @param string $key
+     * @return mixed
+     */
+    abstract function exists(string $key);
+
+    /**
      * 原子自增
      *
      * @param string $key
-     * @param float  $value
-     * @param null   $ttl
+     * @param float  $step
+     * @param null   $expire
      */
-    abstract function incr(string $key, $value, $ttl = null);
+    abstract function incr(string $key, float $step, $expire = null);
 }

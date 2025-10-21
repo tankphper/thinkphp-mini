@@ -21,7 +21,7 @@ class Cache
      * @return AbstractCache
      * @throws Exception
      */
-    public static function getInstance($type = 'Redis', $options = []): AbstractCache
+    public static function getInstance(string $type = 'Redis', array $options = []): AbstractCache
     {
         $type = ucwords(strtolower($type));
         if (!isset(static::$instance[$type])) {

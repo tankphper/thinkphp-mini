@@ -918,7 +918,7 @@ function U($url = '', $vars = '', $suffix = true, $domain = false)
  * 缓存管理
  *
  * @param        $name
- * @param string $value
+ * @param mixed  $value
  * @param null   $expire
  * @return mixed|string
  * @throws Think\Exception

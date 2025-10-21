@@ -22,7 +22,7 @@ class Redis extends AbstractCache
      * @param array $options
      * @throws Exception
      */
-    public function __construct($options = [])
+    public function __construct(array $options = [])
     {
         $this->options = array_merge($this->options, $options);
         $this->handler = RedisManager::getInstance();
@@ -79,6 +79,18 @@ class Redis extends AbstractCache
     }
 
     /**
+     * 是否存在
+     *
+     * @param string $key
+     * @return bool|int|\Redis
+     */
+    public function exists(string $key)
+    {
+        $key = $this->options['prefix'] . $key;
+        return $this->handler->exists($key);
+    }
+
+    /**
      * 原子自增
      *
      * @param string $key
@@ -87,7 +99,7 @@ class Redis extends AbstractCache
      * @return false|float|\Redis
      * @throws RedisException
      */
-    public function incr(string $key, $step, $expire = null)
+    public function incr(string $key, float $step, $expire = null)
     {
         $key = $this->options['prefix'] . $key;
         $res = $this->handler->incrByFloat($key, $step);
