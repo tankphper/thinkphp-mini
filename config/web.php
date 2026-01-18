@@ -35,7 +35,7 @@ return [
     'DATA_CACHE_PATH'      => env('DATA_CACHE_PATH', TEMP_PATH),
     'DATA_CACHE_SALT'      => env('DATA_CACHE_SALT', ''),
     'DATA_CACHE_SUB_DIR'   => env('DATA_CACHE_SUB_DIR', true),
-    'DATA_CACHE_DIR_LEVEL' => env('DATA_PATH_DIR_LEVEL', 1),
+    'DATA_CACHE_DIR_LEVEL' => env('DATA_CACHE_DIR_LEVEL', 1),
     'DATA_CACHE_COMPRESS'  => env('DATA_CACHE_COMPRESS', false),
     // 错误设置
     'ERROR_PAGE'           => env('ERROR_PAGE', ''),
