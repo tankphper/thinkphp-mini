@@ -94,13 +94,13 @@ class Redis extends AbstractCache
      * 设置超时
      *
      * @param string $key
-     * @param int    $expire
+     * @param int    $timeout
      * @return bool|\Redis
      */
-    public function expire(string $key, int $expire)
+    public function expire(string $key, int $timeout)
     {
         $key = $this->options['prefix'] . $key;
-        return $this->handler->expire($key, $expire);
+        return $this->handler->expire($key, $timeout);
     }
 
     /**
