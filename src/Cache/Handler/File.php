@@ -143,7 +143,7 @@ class File extends AbstractCache
      */
     function exists(string $key)
     {
-        return false;
+        return file_exists($this->filename($key));
     }
 
     /**
