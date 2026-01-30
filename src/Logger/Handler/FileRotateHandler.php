@@ -150,7 +150,7 @@ class FileRotateHandler extends AbstractProcessingHandler
      */
     private function deleteLog($logFile)
     {
-        $files = glob(dirname($logFile) . '/*.' . basename($logFile));
+        $files = glob(dirname($logFile) . '/' . rtrim(basename($this->logFile), 'log') . '*.log');
         if (!empty($files)) {
             $deleteTime = strtotime('-' . $this->logFileKeepDay . 'day');
             foreach ($files as $file) {
