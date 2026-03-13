@@ -152,7 +152,7 @@ class Logger extends MonologLogger
     private function formatMessage($message): string
     {
         if (is_array($message) || is_object($message)) {
-            $message = json_encode($message, JSON_UNESCAPED_UNICODE);
+            $message = json_encode($message, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         }
         return $message;
     }
