@@ -141,8 +141,8 @@ class ViewModel extends Model
                         $k = isset($val['_as']) ? $val['_as'] : $name;
                         $val = $this->_checkFields($name, $val);
                         if (false !== $_field = array_search($field, $val, true)) {
-                            // 存在视图字段
-                            $field = is_numeric($_field) ? $k . '.' . $field : $k . '.' . $_field;
+                            // 存在视图字段，支持运算字段
+                            $field = is_numeric($_field) ? $k . '.' . $field : (false !== strpos($_field, '(') ? $field : $k . '.' . $_field);
                             break;
                         }
                     }
