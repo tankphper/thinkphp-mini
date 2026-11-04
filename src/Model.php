@@ -142,7 +142,7 @@ class Model implements ErrorReporter
     /**
      * 获取字段信息并缓存
      *
-     * @return bool
+     * @return false|void
      */
     public function flushField()
     {
@@ -164,18 +164,12 @@ class Model implements ErrorReporter
             // 记录字段类型
             $type[$key] = $val['type'];
             if ($val['primary']) {
-                // 增加复合主键支持
+                // 取消复合主键支持
                 if (isset($this->fields['_pk']) && $this->fields['_pk'] != null) {
-                    if (is_string($this->fields['_pk'])) {
-                        $this->pk = [$this->fields['_pk']];
-                        $this->fields['_pk'] = $this->pk;
-                    }
-                    $this->pk[] = $key;
-                    $this->fields['_pk'][] = $key;
-                } else {
-                    $this->pk = $key;
-                    $this->fields['_pk'] = $key;
+                    continue;
                 }
+                $this->pk = $key;
+                $this->fields['_pk'] = $key;
                 if ($val['autoinc']) {
                     $this->autoinc = true;
                 }
@@ -273,7 +267,6 @@ class Model implements ErrorReporter
             return $this->scope($method, $args[0]);
         } else {
             E('Method not exist: ' . __CLASS__ . ':' . $method);
-            return;
         }
     }
 
@@ -332,8 +325,8 @@ class Model implements ErrorReporter
     /**
      * 新增数据
      *
-     * @param string $data
-     * @param array  $options
+     * @param mixed $data
+     * @param mixed  $options
      * @param bool   $replace
      * @return bool|mixed
      * @throws Exception

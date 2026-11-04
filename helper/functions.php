@@ -9,7 +9,7 @@
  */
 function env($key, $default = null)
 {
-    $value = $_ENV[$key] ?? getenv($key);
+    $value = $_ENV[$key] ?? $_SERVER[$key] ?? false;
     if ($value === false) {
         return $default;
     }
@@ -488,8 +488,7 @@ function cookie($name = '', $value = '', $option = null)
     $name = $config['prefix'] . str_replace('.', '_', $name);
     if ('' === $value) {
         if (isset($_COOKIE[$name])) {
-            $value = $_COOKIE[$name];
-            return $value;
+            return $_COOKIE[$name];
         } else {
             return null;
         }
@@ -521,21 +520,9 @@ function get_client_ip()
     if ($ip !== null) {
         return $ip;
     }
-    if (isset($_SERVER)) {
-        if (isset($_SERVER['X_REAL_IP'])) {
-            $ip = $_SERVER['X_REAL_IP'];
-        } elseif (isset($_SERVER['REMOTE_ADDR'])) {
-            $ip = $_SERVER['REMOTE_ADDR'];
-        }
-    } else {
-        if (getenv('X_REAL_IP')) {
-            $ip = getenv('X_REAL_IP');
-        } elseif (getenv('REMOTE_ADDR')) {
-            $ip = getenv('REMOTE_ADDR');
-        }
-    }
+    $ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
     // IP地址合法验证
-    if (false === filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6)) {
+    if (false === filter_var($ip, FILTER_VALIDATE_IP)) {
         return '0.0.0.0';
     }
     return $ip;
