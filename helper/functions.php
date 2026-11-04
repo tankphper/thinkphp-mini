@@ -9,7 +9,7 @@
  */
 function env($key, $default = null)
 {
-    $value = getenv($key);
+    $value = $_ENV[$key] ?? getenv($key);
     if ($value === false) {
         return $default;
     }
@@ -513,7 +513,6 @@ function cookie($name = '', $value = '', $option = null)
 /**
  * 获取客户端IP地址
  *
- * @param bool $long
  * @return mixed
  */
 function get_client_ip()
@@ -546,7 +545,7 @@ function get_client_ip()
  * 发送HTTP状态
  *
  * @param $code
- * @return mixed|string
+ * @return string
  */
 function send_http_status($code)
 {
