@@ -325,8 +325,8 @@ class Model implements ErrorReporter
     /**
      * 新增数据
      *
-     * @param mixed $data
-     * @param mixed  $options
+     * @param string $data
+     * @param array  $options
      * @param bool   $replace
      * @return bool|mixed
      * @throws Exception

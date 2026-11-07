@@ -9,7 +9,7 @@
  */
 function env($key, $default = null)
 {
-    $value = $_ENV[$key] ?? $_SERVER[$key] ?? false;
+    $value = $_ENV[$key] ?? false;
     if ($value === false) {
         return $default;
     }
