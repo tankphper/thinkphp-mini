@@ -142,7 +142,7 @@ class Model implements ErrorReporter
     /**
      * 获取字段信息并缓存
      *
-     * @return bool
+     * @return false|void
      */
     public function flushField()
     {
