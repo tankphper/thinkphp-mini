@@ -273,7 +273,6 @@ class Model implements ErrorReporter
             return $this->scope($method, $args[0]);
         } else {
             E('Method not exist: ' . __CLASS__ . ':' . $method);
-            return;
         }
     }
 
