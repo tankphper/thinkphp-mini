@@ -298,10 +298,7 @@ class Model implements ErrorReporter
             }
             foreach ($data as $key => $val) {
                 if (!in_array($key, $fields, true)) {
-                    if (!empty($this->options['strict'])) {
-                        E('Data type invalid: [' . $key . '=>' . $val . ']');
-                    }
-                    unset($data[$key]);
+                    E('Data type invalid: [' . $key . '=>' . $val . ']');
                 } elseif (is_scalar($val)) {
                     // 字段类型检查 和 强制转换
                     $this->_parseType($data, $key);
@@ -772,10 +769,7 @@ class Model implements ErrorReporter
                         $this->_parseType($options['where'], $key);
                     }
                 } elseif (!is_numeric($key) && '_' != substr($key, 0, 1) && false === strpos($key, '.') && false === strpos($key, '(') && false === strpos($key, '|') && false === strpos($key, '&')) {
-                    if (!empty($this->options['strict'])) {
-                        E('Error query express: [' . $key . '=>' . $val . ']');
-                    }
-                    unset($options['where'][$key]);
+                    E('Error query express: [' . $key . '=>' . $val . ']');
                 }
             }
         }
